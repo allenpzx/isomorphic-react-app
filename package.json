@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "concurrently \"parcel watch client/index.js --out-file /dist/bundle.js\" \"parcel watch server/index.js --out-dir dist --target node\"  \"nodemon dist/index.js\"",
-    "start": "parcel build server/index.js && node dist"
+    "build": "concurrently \"parcel build client/index.js --out-file /dist/bundle.js\" \"parcel build server/index.js --out-dir dist --target node\" && nodemon dist/index.js"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.3.0",
