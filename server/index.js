@@ -13,7 +13,6 @@ import { Provider } from 'react-redux';
 app
 .use(express.static('dist'))
 .use('*', (req, res, next)=>{
-    // const isBrowser = typeof window !== 'undefined';
     const sheet = new ServerStyleSheet(); // for styled-components
     const store = initializeStore();
     const context = {};
@@ -26,7 +25,6 @@ app
             </Provider>
         </StyleSheetManager>
     );
-    console.log('[context]-', context);
 
     if (context.url) {
         // Somewhere a `<Redirect>` was rendered

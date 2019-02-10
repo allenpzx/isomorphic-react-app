@@ -1,12 +1,20 @@
 import React from 'react';
 import { Route, Link} from 'react-router-dom';
 import A from '../components/a.js';
-import B from '../components/b.js';
+// import B from '../components/b.js';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { setShow } from '../redux/show.js';
 import { withRouter } from 'react-router-dom';
 import { setCounter } from '../redux/counter.js';
+import Loadable from 'react-loadable';
+const B = Loadable({
+    loader: () => import('../components/b.js'),
+    loading() {
+      return <div>Loading...</div>
+    }
+  });
+  
 
 const Container = styled.div`
     display: flex;
