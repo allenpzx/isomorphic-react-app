@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"parcel watch client/index.js --out-file /dist/bundle.js\" \"parcel watch server/index.js --out-dir dist --target node\"  \"nodemon dist/index.js\"",
     "build": "concurrently \"parcel build client/index.js --out-file /dist/bundle.js\" \"parcel build server/index.js --out-dir dist --target node\" && nodemon dist/index.js",
-    "clearn": "node"
+    "test": "jest"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.3.0",
@@ -25,6 +25,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0"
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.1.0",
+    "jest": "^24.1.0",
+    "react-test-renderer": "^16.8.2"
   }
 }

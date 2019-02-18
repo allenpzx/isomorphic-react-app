@@ -1,11 +1,17 @@
 ## Isomorphic React App
 
-express + react + redux + react-router + styled-components + parcel + react-loadable
+server: express
+client: react + redux + react-router + react-loadable + styled-components
+test: jest
+bundle: parcel + babel
+deploy: docker
 
-Isomorphic React App, including SSR/code splitting/CSS in JS...
+Isomorphic React App, including SSR/code splitting/preload/CSS in JS/testing...
 
 `yarn` install dependencies required
 
 `yarn dev` development mode
+
+`yarn test` test mode
 
 `yarn build` production mode

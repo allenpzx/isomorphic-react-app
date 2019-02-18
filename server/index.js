@@ -31,7 +31,6 @@ app
         redirect(301, context.url);
     } else {
         // we're good, send the response
-
         store.dispatch({type: 'ADD'})
         store.dispatch({type: 'ADD'})
         store.dispatch({type: 'ADD'})
@@ -39,7 +38,7 @@ app
         store.dispatch({type: 'ADD'})
 
         const preloadedState = store.getState();
-        console.log('server', preloadedState);
+        // console.log('server', preloadedState);
         const fullPage = renderFullPage(markup, preloadedState);
         res.send(fullPage);
     }

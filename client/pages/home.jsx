@@ -5,7 +5,7 @@ import A from '../components/a.js';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { setShow } from '../redux/show.js';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Switch, Redirect } from 'react-router-dom';
 import { setCounter } from '../redux/counter.js';
 import Loadable from 'react-loadable';
 const B = Loadable({
@@ -21,8 +21,8 @@ const Container = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    align-items: center;
-    border: 1px solid navyblue;
+    align-items: flex-start;
+    border: 1px solid red;
 `;
 
 const Item = styled.div`
@@ -39,6 +39,8 @@ const Button = styled.div`
     background-color: yellow;
 `
 
+const Empty = () => <div>Empty component...</div>;
+
 class Home extends React.Component{
 
     constructor(props){
@@ -50,20 +52,25 @@ class Home extends React.Component{
     }
 
     componentDidMount(){
-        console.log('did mount')
+        // console.log('did mount')
         this.props.setShow();
     }
 
     componentWillMount(){
-        console.log('will mount')
+        // console.log('will mount')
     }
 
     componentDidUpdate(){
-        console.log('did update')
+        // console.log('did update')
+    }
+
+    onMouseOver = () => {
+        // console.log('on mouse over!');
+        B.preload();
     }
 
     render(){
-        console.log('[home]-', this.props);
+        // console.log('[home]-', this.props);
         const show = this.props.show;
         const counter = this.props.counter;
         return (
@@ -88,12 +95,16 @@ class Home extends React.Component{
                 <div>
                     <h2>react-router</h2>
                     <Link to='/a' >to A</Link>
-                    <Link to='/b'>to B</Link>
+                    <Link to='/b' onMouseOver={()=>this.onMouseOver()}>to B</Link>
                 </div>
                 <br />
                 <br />
-                <Route path='/a' component={A} />
-                <Route path='/b' component={B} />
+                <Switch>
+                    <Route path='/a' component={A} />
+                    <Route path='/b' component={B} />
+                    <Route component={Empty} />
+                    <Redirect from='/ceshi' to='/b' />
+                </Switch>
                 <Container>
                     {show && show.payload instanceof Array && show.payload.map(v=><Item key={v.show.url}><h2>{v.show.name}</h2><img src={v.show.image ? v.show.image.medium : null}/></Item>)}
                 </Container>
