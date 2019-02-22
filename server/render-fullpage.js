@@ -1,4 +1,4 @@
-const renderFullPage = (rootElement, preloadedState) => `
+const renderFullPage = (rootElement, preloadedState, manifest) => `
 <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -25,7 +25,7 @@ const renderFullPage = (rootElement, preloadedState) => `
           '\\u003c'
         )}
       </script>
-      <script src='/bundle.js'></script>
+      <script src='/client.bundle.js'></script>
     </body>
   </html>
   

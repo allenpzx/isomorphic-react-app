@@ -13,7 +13,7 @@ import { Provider } from 'react-redux';
 app
 .use(express.static('dist'))
 .use('*', (req, res, next)=>{
-    const sheet = new ServerStyleSheet(); // for styled-components
+    const sheet = new ServerStyleSheet(); // for styled-components 
     const store = initializeStore();
     const context = {};
     const markup = ReactDOMServer.renderToString(
@@ -25,6 +25,8 @@ app
             </Provider>
         </StyleSheetManager>
     );
+
+    // return res.send(markup);
 
     if (context.url) {
         // Somewhere a `<Redirect>` was rendered
@@ -38,7 +40,7 @@ app
         store.dispatch({type: 'ADD'})
 
         const preloadedState = store.getState();
-        // console.log('server', preloadedState);
+        console.log('preloadedState: ', preloadedState);
         const fullPage = renderFullPage(markup, preloadedState);
         res.send(fullPage);
     }
