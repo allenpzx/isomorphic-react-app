@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Link} from 'react-router-dom';
 import A from '../components/a.js';
-// import B from '../components/b.js';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { setShow } from '../redux/show.js';
 import { withRouter, Switch, Redirect } from 'react-router-dom';
 import { setCounter } from '../redux/counter.js';
 import Loadable from 'react-loadable';
+
 const B = Loadable({
     loader: () => import('../components/b.js'),
     loading() {
@@ -65,17 +65,16 @@ class Home extends React.Component{
     }
 
     onMouseOver = () => {
-        // console.log('on mouse over!');
         B.preload();
     }
 
     render(){
-        // console.log('[home]-', this.props);
         const show = this.props.show;
         const counter = this.props.counter;
         return (
             <div>
                 <h1>Home page</h1>
+                <button onClick={()=>printMe()}></button>
                 <div>
                     <h2>state.counter</h2>
                     {this.state.counter}
