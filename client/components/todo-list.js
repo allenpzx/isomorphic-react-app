@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, Button } from 'antd';
 
-export default function TodoList({todos, completedTodo}){
+export default function TodoList({todos, toggleTodo}){
     let arr1 = [];
     let arr2 = [];
     todos.map(v=>{
@@ -17,7 +17,7 @@ export default function TodoList({todos, completedTodo}){
             <List
                 bordered
                 dataSource={next}
-                renderItem={item => (<List.Item style={{flexDirection: 'row', justifyContent: 'space-around', textDecoration: item.completed?'line-through':'none'}}>-{item.text}<Button onClick={()=>completedTodo(item.id)}>完成</Button></List.Item>)}
+                renderItem={item => (<List.Item style={{flexDirection: 'row', justifyContent: 'space-around', textDecoration: item.completed?'line-through':'none'}}>-{item.text}<Button onClick={()=>toggleTodo(item.id)}>toggle</Button></List.Item>)}
             />
         </div>
     )

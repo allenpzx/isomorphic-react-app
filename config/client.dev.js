@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const common = require('./client.common.js');
 const path = require('path');
 module.exports = merge(common, {
+    target: 'web',
     entry: {
         client:["@babel/polyfill", path.resolve(__dirname, '../client/index.js')]
     },

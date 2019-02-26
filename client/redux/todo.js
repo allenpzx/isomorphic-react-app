@@ -1,12 +1,11 @@
 const initialState = [{id: 0, text: 'text', completed: false}];
-const completedTodo = (state, id) => {
+const toggleTodo = (state, id) => {
     let next = state.slice();
     next.find((v, i, arr)=>{
         if(v.id===id){
-            v.completed = true
+            v.completed = !v.completed
         }
     });
-    console.log(next);
     return next;
 }
 let todoId = 1;
@@ -14,10 +13,8 @@ const todo = (state = initialState, action) => {
     switch(action.type){
         case 'ADD_TODO':
             return [...state, {id: todoId++, text: action.payload.text, completed: false}]
-        case 'COMPLETED_TODO':
-            return completedTodo(state, action.payload.id);
-        case 'FILTER_TODO':
-            return 
+        case 'TOGGLE_TODO':
+            return toggleTodo(state, action.payload.id);
         default:
             return state
     }

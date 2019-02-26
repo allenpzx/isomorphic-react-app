@@ -28,14 +28,27 @@ const Container = styled.div`
     padding: 1rem 2rem;
 `
 
+const getVisibleTodos = (todos, filter) => {
+    switch(filter){
+        case 'SHOW_ALL':
+            return todos
+        case 'SHOW_COMPLETED':
+            return todos.filter(v=>v.completed)
+        case 'SHOW_ACTIVE':
+            return todos.filter(v=>!v.completed)
+        default:
+            return todos
+    }
+}
+
 @connect(
     state=>({
-        todo: state.todo
+        todo: getVisibleTodos(state.todo, state.todoFilter)
     }),
     dispatch=>({
         addTodo: v=>dispatch({type: 'ADD_TODO', payload: {text: v}}),
-        completedTodo: id=>dispatch({type: 'COMPLETED_TODO', payload: {id}}),
-        filterTodo: ()=>dispatch({type: 'FILTER_TODO'})
+        toggleTodo: id=>dispatch({type: 'TOGGLE_TODO', payload: {id}}),
+        filtTodos: filter=>dispatch({type: 'SET_VISIBILITY_FILTER', payload: filter})
     })
 )
 class Todo extends React.Component {
@@ -47,9 +60,12 @@ class Todo extends React.Component {
                 <h1>This is Test Page!</h1>
                 <img style={{width: '200px'}} src={require('../assets/images/test.jpg')} alt="test"/>
                 <Container>
-                    <TodoList todos={this.props.todo} completedTodo={this.props.completedTodo}/>
+                    <TodoList todos={this.props.todo} toggleTodo={this.props.toggleTodo}/>
                     <br />
-                    <Button onClick={()=>this.props.filterTodo()}>filter todo</Button>
+                    <Button onClick={()=>this.props.filtTodos('SHOW_ALL')}>show all</Button>
+                    <Button onClick={()=>this.props.filtTodos('SHOW_COMPLETED')}>show completed</Button>
+                    <Button onClick={()=>this.props.filtTodos('SHOW_ACTIVE')}>show active</Button>
+                    <br />
                     <br />
                     <Search
                         placeholder="input todo text"
