@@ -1,28 +1,10 @@
 const path = require('path');
-const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 const commonConfig = {
-    mode: 'production',
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
-        }),
-        new ManifestPlugin({
-            fileName: '[name].manifest.json'
-        }),
-        new BundleAnalyzerPlugin({
-            analyzerMode: 'static',
-            reportFilename: 'bundle-analyze.html',
-        }),
-        new UglifyJSPlugin({
-            sourceMap: true
-        }),
-    ],
-    watch: false,
-    devtool: 'source-map',
+    mode: 'development',
+    watch: true,
+    devtool: 'inline-source-map',
     module: {
         rules: [
             {test: /\.css$/,use: ['style-loader','css-loader']},
@@ -55,6 +37,11 @@ const clientConfig = {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].bundle.js'
     },
+    plugins: [
+        new ManifestPlugin({
+            fileName: 'client.manifest.json'
+        })
+    ],
     ...commonConfig
 }
 
@@ -67,6 +54,11 @@ const serverConfig = {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].bundle.js'
     },
+    plugins: [
+        new ManifestPlugin({
+            fileName: 'server.manifest.json'
+        })
+    ],
     ...commonConfig
 }
 
