@@ -93,8 +93,8 @@ class Home extends React.Component{
                 <br />
                 <div>
                     <h2>react-router</h2>
-                    <Link to='/a' >to A</Link>
-                    <Link to='/b' onMouseOver={()=>this.onMouseOver()}>to B</Link>
+                    <Link to='/home/a' >to A</Link>
+                    <Link to='/home/b' onMouseOver={()=>this.onMouseOver()}>to B</Link>
                 </div>
                 <br />
                 <br />

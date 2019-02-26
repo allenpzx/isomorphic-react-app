@@ -2,17 +2,20 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import {show} from './show.js';
 import {counter} from './counter.js';
+import {todo} from './todo.js';
+import rootSaga from '../saga/index.js';
+import createSagaMiddleware from 'redux-saga';
+const sagaMiddleware = createSagaMiddleware()
+
 const reducer = combineReducers({
     show,
-    counter
+    counter,
+    todo
 })
-const isBrowser = ()=>{
-    try {
-        return this===window;
-    }catch(e){
-         return false;
-    }
+const enhancer = applyMiddleware(thunk, sagaMiddleware);
+const initializeStore = preloadedState => {
+    let store = createStore(reducer, preloadedState?preloadedState:undefined, enhancer)
+    sagaMiddleware.run(rootSaga);
+    return store
 };
-const enhancer = applyMiddleware(thunk);
-const initializeStore = preloadedState => createStore(reducer, preloadedState?preloadedState:undefined, enhancer);
 export {initializeStore}

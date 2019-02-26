@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 9090;
+const PORT = process.env.PORT || 9099;
 const ReactDOMServer = require('react-dom/server');
 import React from 'react';
 import App from '../client/app.js';
