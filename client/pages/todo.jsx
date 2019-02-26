@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import TodoList from '../components/todo-list.js';
-import { Input } from 'antd';
+import { Button, Input } from 'antd';
 const Search = Input.Search;
 
 const Page = styled.div`
@@ -34,7 +34,8 @@ const Container = styled.div`
     }),
     dispatch=>({
         addTodo: v=>dispatch({type: 'ADD_TODO', payload: {text: v}}),
-        completedTodo: id=>console.log('completed todo', id)
+        completedTodo: id=>dispatch({type: 'COMPLETED_TODO', payload: {id}}),
+        filterTodo: ()=>dispatch({type: 'FILTER_TODO'})
     })
 )
 class Todo extends React.Component {
@@ -47,6 +48,8 @@ class Todo extends React.Component {
                 <img style={{width: '200px'}} src={require('../assets/images/test.jpg')} alt="test"/>
                 <Container>
                     <TodoList todos={this.props.todo} completedTodo={this.props.completedTodo}/>
+                    <br />
+                    <Button onClick={()=>this.props.filterTodo()}>filter todo</Button>
                     <br />
                     <Search
                         placeholder="input todo text"

@@ -1,10 +1,11 @@
 const initialState = [{id: 0, text: 'text', completed: false}];
 const completedTodo = (state, id) => {
-    const next = state.find((v, i, arr)=>{
+    let next = state.slice();
+    next.find((v, i, arr)=>{
         if(v.id===id){
-            arr[i].completed = !arr[i].completed;
+            v.completed = true
         }
-    })
+    });
     console.log(next);
     return next;
 }
@@ -13,8 +14,10 @@ const todo = (state = initialState, action) => {
     switch(action.type){
         case 'ADD_TODO':
             return [...state, {id: todoId++, text: action.payload.text, completed: false}]
-        case 'COMPLETED_TOTO':
+        case 'COMPLETED_TODO':
             return completedTodo(state, action.payload.id);
+        case 'FILTER_TODO':
+            return 
         default:
             return state
     }

@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 9099;
+const PORT = process.env.PORT || 9090;
 const ReactDOMServer = require('react-dom/server');
 import React from 'react';
 import App from '../client/app.js';
@@ -26,8 +26,6 @@ app
         </StyleSheetManager>
     );
 
-    // return res.send(markup);
-
     if (context.url) {
         // Somewhere a `<Redirect>` was rendered
         redirect(301, context.url);
@@ -40,7 +38,7 @@ app
         store.dispatch({type: 'ADD'})
 
         const preloadedState = store.getState();
-        console.log('preloadedState: ', preloadedState);
+        // console.log('preloadedState: ', preloadedState);
         const fullPage = renderFullPage(markup, preloadedState);
         res.send(fullPage);
     }

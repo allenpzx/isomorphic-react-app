@@ -1,5 +1,7 @@
 const path = require('path');
-const NODE_ENV = process.env.NODE_ENV;
+const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 const commonConfig = {

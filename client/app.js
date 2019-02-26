@@ -11,6 +11,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/home" component={Home} />
           <Route path="/todo" component={Todo} />
+          <Route component={Todo} />
         </Switch>
       </Layout>
     );

@@ -3,7 +3,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 
 const commonConfig = {
     mode: 'development',
-    watch: true,
+    // watch: true,
     devtool: 'inline-source-map',
     module: {
         rules: [
