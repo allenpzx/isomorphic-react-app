@@ -57,7 +57,8 @@ class Todo extends React.Component {
         console.log('Test page props-', this.props);
         return (
             <Page>
-                <h1>This is Test Page!</h1>
+                <h1>This is todo list Page!</h1>
+                <p>use redux with react-redux in server side</p>
                 <img style={{width: '200px'}} src={require('../assets/images/test.jpg')} alt="test"/>
                 <Container>
                     <TodoList todos={this.props.todo} toggleTodo={this.props.toggleTodo}/>

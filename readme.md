@@ -1,11 +1,11 @@
 ## Isomorphic React App
 
 server: `express`
-client: `react` + `redux` + `react-router` + `react-loadable` + `styled-components`
+client: `react` + `redux` + `react-router` + `react-loadable` + `styled-components` + `redux-saga`
 test: `jest`
 bundle: `webpack` + `babel`
 
-Isomorphic React App, including SSR/code splitting/preload/CSS in JS/testing...
+Isomorphic React App, including SSR/code splitting/preload/dynamic import/side effect enhancer/CSS in JS/testing...
 
 `yarn` install dependencies required
 

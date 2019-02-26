@@ -1,4 +1,4 @@
-import { put, takeEvery, all } from 'redux-saga/effects';
+import { call, put, takeEvery, all } from 'redux-saga/effects';
 
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
@@ -15,12 +15,12 @@ export function* watchIncrementAsync() {
   yield takeEvery('INCREMENT_ASYNC', incrementAsync)
 }
 
-const logTodo = () => {
-  console.log('add todo is going [from add todo saga]');
-}
-
-export function* watchAddTodo() {
-  yield takeEvery('ADD_TODO', logTodo)
+export function* watchDelayAdd() {
+  yield takeEvery('DELAY_ADD', function*(){
+    yield call(delay, 1000);
+    yield put({type: 'ADD'});
+    yield console.log('ceshi');
+  })
 }
 
 // notice how we now only export the rootSaga
@@ -29,6 +29,6 @@ export default function* rootSaga() {
   yield all([
     helloSaga(),
     watchIncrementAsync(),
-    watchAddTodo()
+    watchDelayAdd()
   ])
 }

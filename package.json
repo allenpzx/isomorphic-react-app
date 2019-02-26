@@ -6,7 +6,6 @@
   "scripts": {
     "start": "yarn && yarn build && cross-env NODE_ENV=production node dist/server.bundle.js",
     "dev": "cross-env NODE_ENV=development && concurrently \"webpack --watch --config config/isomorphic.dev.js\" \"node dist/server.bundle.js\"",
-    "dev2": "cross-env NODE_ENV=development && webpack --config config/isomorphic.dev.js && node dist/server.bundle.js",
     "build": "cross-env NODE_ENV=production webpack --config config/isomorphic.prod.js",
     "test": "jest",
     "client:dev": "cross-env NODE_ENV=development webpack-dev-server --open --config config/client.dev.js",

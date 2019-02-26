@@ -7,6 +7,7 @@ import { setShow } from '../redux/show.js';
 import { withRouter, Switch, Redirect } from 'react-router-dom';
 import { setCounter } from '../redux/counter.js';
 import Loadable from 'react-loadable';
+import { Button } from 'antd';
 
 const B = Loadable({
     loader: () => import('../components/b.js'),
@@ -32,16 +33,9 @@ const Item = styled.div`
     align-items: center;
     margin-bottom: 1rem;
 `;
-
-const Button = styled.div`
-    border: none;
-    padding: 1rem 2rem;
-    background-color: yellow;
-`
-
 const Empty = () => <div>Empty component...</div>;
 
-class Home extends React.Component{
+class CodeSpliting extends React.Component{
 
     constructor(props){
         super(props);
@@ -74,33 +68,35 @@ class Home extends React.Component{
         return (
             <div>
                 <h1>Home page</h1>
-                <button onClick={()=>printMe()}></button>
+                <p>show sync update data when concat data, multiple in split page</p>
+                <p>show code spliting and preload bundle</p>
+                <p>dynamic import</p>
                 <div>
                     <h2>state.counter</h2>
                     {this.state.counter}
                 </div>
-                <button onClick={()=>this.setState({counter: this.state.counter+1})}>+</button>
-                <button onClick={()=>this.setState({counter: this.state.counter-1})}>-</button>
+                <Button onClick={()=>this.setState({counter: this.state.counter+1})}>+</Button>
+                <Button onClick={()=>this.setState({counter: this.state.counter-1})}>-</Button>
                 <br />
                 <br />
                 <div>
                     <h2>redux.counter</h2>
                     {counter}
                 </div>
-                <button onClick={()=>this.props.setCounter('ADD')}>+</button>
-                <button onClick={()=>this.props.setCounter('SUBTRACT')}>-</button>
+                <Button onClick={()=>this.props.setCounter('ADD')}>+</Button>
+                <Button onClick={()=>this.props.setCounter('SUBTRACT')}>-</Button>
                 <br />
                 <br />
                 <div>
                     <h2>react-router</h2>
-                    <Link to='/home/a' >to A</Link>
-                    <Link to='/home/b' onMouseOver={()=>this.onMouseOver()}>to B</Link>
+                    <Button><Link to='/code-spliting/a'>to A</Link></Button>
+                    <Button><Link to='/code-spliting/b' onMouseOver={()=>this.onMouseOver()}>to B(mouse hover will preload bundle)</Link></Button>
                 </div>
                 <br />
                 <br />
                 <Switch>
-                    <Route path='/a' component={A} />
-                    <Route path='/b' component={B} />
+                    <Route path='/code-spliting/a' component={A} />
+                    <Route path='/code-spliting/b' component={B} />
                     <Route component={Empty} />
                     <Redirect from='/ceshi' to='/b' />
                 </Switch>
@@ -121,4 +117,4 @@ export default withRouter(connect(
         setShow: name=>setShow(dispatch)(name?name:null),
         setCounter: operation=>setCounter(dispatch)(operation)
     })
-)(Home))
+)(CodeSpliting))
