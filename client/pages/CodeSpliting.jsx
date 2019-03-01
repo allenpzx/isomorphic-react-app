@@ -3,8 +3,7 @@ import { Route, Link} from 'react-router-dom';
 import A from '../components/a.js';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { setShow } from '../redux/show.js';
-import { withRouter, Switch, Redirect } from 'react-router-dom';
+import { withRouter, Switch } from 'react-router-dom';
 import { setCounter } from '../redux/counter.js';
 import Loadable from 'react-loadable';
 import { Button } from 'antd';
@@ -63,7 +62,6 @@ class CodeSpliting extends React.Component{
     }
 
     render(){
-        const show = this.props.show;
         const counter = this.props.counter;
         return (
             <div>
@@ -72,7 +70,7 @@ class CodeSpliting extends React.Component{
                 <p>show code spliting and preload bundle</p>
                 <p>dynamic import</p>
                 <div>
-                    <h2>state.counter</h2>
+                    <h2>state.counter this test for after ssr binding event</h2>
                     {this.state.counter}
                 </div>
                 <Button onClick={()=>this.setState({counter: this.state.counter+1})}>+</Button>
@@ -80,7 +78,7 @@ class CodeSpliting extends React.Component{
                 <br />
                 <br />
                 <div>
-                    <h2>redux.counter</h2>
+                    <h2>redux.counter this test for sync state from server(common state was used for server and client if 5 is ok)</h2>
                     {counter}
                 </div>
                 <Button onClick={()=>this.props.setCounter('ADD')}>+</Button>
@@ -88,7 +86,7 @@ class CodeSpliting extends React.Component{
                 <br />
                 <br />
                 <div>
-                    <h2>react-router</h2>
+                    <h2>Splited bundle ⬇️ you can check network on chrome browser and hover mouse on Button B to check it</h2>
                     <Button><Link to='/code-spliting/a'>to A</Link></Button>
                     <Button><Link to='/code-spliting/b' onMouseOver={()=>this.onMouseOver()}>to B(mouse hover will preload bundle)</Link></Button>
                 </div>
@@ -98,23 +96,22 @@ class CodeSpliting extends React.Component{
                     <Route path='/code-spliting/a' component={A} />
                     <Route path='/code-spliting/b' component={B} />
                     <Route component={Empty} />
-                    <Redirect from='/ceshi' to='/b' />
                 </Switch>
-                <Container>
+                {/* <Container>
                     {show && show.payload instanceof Array && show.payload.map(v=><Item key={v.show.url}><h2>{v.show.name}</h2><img src={v.show.image ? v.show.image.medium : null}/></Item>)}
                 </Container>
-                <Button onClick={()=>this.props.setShow('red')}>load more</Button>
+                <Button onClick={()=>this.props.setShow('red')}>load more</Button> */}
             </div>
         )
     }
 }
 export default withRouter(connect(
     state=>({
-        show: state.show,
+        // show: state.show,
         counter: state.counter
     }),
     dispatch=>({
-        setShow: name=>setShow(dispatch)(name?name:null),
+        // setShow: name=>setShow(dispatch)(name?name:null),
         setCounter: operation=>setCounter(dispatch)(operation)
     })
 )(CodeSpliting))

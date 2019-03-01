@@ -16,7 +16,7 @@ module.exports = {
     watch: true,
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
+            'process.env.NODE_ENV': JSON.stringify('production');
         }),
         new ManifestPlugin({
             fileName: 'server.manifest.json'
@@ -36,7 +36,7 @@ module.exports = {
                   loader: 'babel-loader',
                   options: {
                     presets: ["@babel/preset-env", "@babel/preset-react"],
-                    plugins: ["@babel/plugin-proposal-class-properties", "@babel/plugin-syntax-dynamic-import"]
+                    plugins: ["@babel/plugin-proposal-class-properties", ["@babel/plugin-proposal-decorators", { "legacy": true }], "@babel/plugin-syntax-dynamic-import"],
                   }
                 }
             },
