@@ -6,6 +6,7 @@ import Todo from "./pages/todo.jsx";
 import AsyncCancel from './pages/AsyncCancel.jsx';
 import { Switch, Route } from "react-router-dom";
 import 'antd/dist/antd.css';
+import './assets/css/index.css';
 class App extends React.Component {
   render() {
     return (

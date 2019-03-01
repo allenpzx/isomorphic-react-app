@@ -5,5 +5,5 @@ app
 .use(express.static('dist'))
 .listen(PORT, (err)=>{
     if(err) throw err
-    console.log(`Test client:prod is on PORT ${PORT}`)
+    console.log(`Test client:prod is on PORT ${localhost}:${PORT}`);
 });
