@@ -1,9 +1,7 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
 module.exports = {
     target: 'web',
     entry: {
@@ -13,17 +11,13 @@ module.exports = {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].[hash].js',
         chunkFilename: '[name].bundle.js',
+        publicPath: '/'
     },
-    context: path.resolve(__dirname, '../'),
     plugins: [
         new CleanWebpackPlugin([path.resolve(__dirname, '../dist')]),
         new HtmlWebpackPlugin({
             title: 'Isomorphic React App',
             template: path.resolve(__dirname, '../public/index.html')
-        }),
-        new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[id].css"
         }),
         new ExtractTextPlugin({
             filename: '[name].bundle.css'
@@ -50,6 +44,7 @@ module.exports = {
                   options: {
                     presets: ["@babel/preset-env", "@babel/preset-react"],
                     plugins: [
+                        "@babel/plugin-transform-regenerator",
                         "@babel/plugin-syntax-dynamic-import",
                         ["@babel/plugin-proposal-decorators", { "legacy": true }],
                         ["@babel/plugin-proposal-class-properties", { "loose": true }],

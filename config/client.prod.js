@@ -4,6 +4,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const merge = require('webpack-merge');
 const common = require('./client.common.js');
 const ManifestPlugin = require('webpack-manifest-plugin');
+
 module.exports = merge(common, {
     mode: 'production',
     devtool: 'source-map',

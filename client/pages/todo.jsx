@@ -15,18 +15,13 @@ const Page = styled.div`
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-`
+`;
 
-const BTN = styled.div`
-    border: 1px solid yellow;
-    padding: 1rem 2rem;
-    background-color: orange;
-`
 const Container = styled.div`
     width: 50vw;
     border: 1px solid yellow;
     padding: 1rem 2rem;
-`
+`;
 
 const getVisibleTodos = (todos, filter) => {
     switch(filter){
@@ -53,8 +48,18 @@ const getVisibleTodos = (todos, filter) => {
 )
 class Todo extends React.Component {
 
+    state = {
+        todo: ''
+    }
+
+    handleChange = e => this.setState({todo: this.state.todo + e.target.value});
+
+    handleAddTodo = v => {
+        this.props.addTodo(v);
+        this.setState({todo: ''});
+    }
+
     render(){
-        console.log('Test page props-', this.props);
         return (
             <Page>
                 <h1>This is todo list Page!</h1>
@@ -71,12 +76,11 @@ class Todo extends React.Component {
                     <Search
                         placeholder="input todo text"
                         enterButton="todo"
-                        onSearch={value => {
-                            this.props.addTodo(value);
-                        }}
+                        onSearch={this.handleAddTodo}
+                        value={this.state.todo}
+                        onChange={this.handleChange}
                     />
                 </Container>
-                <BTN onClick={()=>this.props.testSage()}>get some tv detail</BTN>
             </Page>
         )
     }

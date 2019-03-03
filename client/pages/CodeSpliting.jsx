@@ -1,10 +1,9 @@
 import React from 'react';
 import { Route, Link} from 'react-router-dom';
 import A from '../components/a.js';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { withRouter, Switch } from 'react-router-dom';
-import { setCounter } from '../redux/counter.js';
+import { setCounter } from '../store/counter.js';
 import Loadable from 'react-loadable';
 import { Button } from 'antd';
 
@@ -15,23 +14,6 @@ const B = Loadable({
     }
   });
   
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: flex-start;
-    border: 1px solid red;
-`;
-
-const Item = styled.div`
-    border: 1px solid red;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1rem;
-`;
 const Empty = () => <div>Empty component...</div>;
 
 class CodeSpliting extends React.Component{
@@ -46,7 +28,7 @@ class CodeSpliting extends React.Component{
 
     componentDidMount(){
         // console.log('did mount')
-        this.props.setShow();
+        // this.props.setShow();
     }
 
     componentWillMount(){

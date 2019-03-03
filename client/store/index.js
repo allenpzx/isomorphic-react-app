@@ -4,7 +4,7 @@ import {show} from './show.js';
 import {counter} from './counter.js';
 import {todo} from './todo.js';
 import todoFilter from './todo.filter.js';
-import rootSaga from '../saga/index.js';
+import rootSaga from './sagas.js';
 import createSagaMiddleware from 'redux-saga';
 const sagaMiddleware = createSagaMiddleware()
 
