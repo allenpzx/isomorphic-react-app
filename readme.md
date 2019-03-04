@@ -1,9 +1,9 @@
 ## Isomorphic React App
 
-server: `express`
-client: `react` + `redux` + `react-router` + `react-loadable` + `styled-components` + `redux-saga`
-test: `jest`
-bundle: `webpack` + `babel`
+server: `express 4`
+client: `react 16` + `redux 4` + `react-router 4` + `react-loadable 5` + `styled-components 4` + `redux-saga 1`
+test: `jest 24`
+bundle: `webpack 4` + `babel 7`
 
 Isomorphic React App, including SSR/code splitting/preload/dynamic import/side effect enhancer/CSS in JS/testing...
 
@@ -18,6 +18,8 @@ Isomorphic React App, including SSR/code splitting/preload/dynamic import/side e
 `yarn client:dev` SPA development mode
 
 `yarn client:prod` SPA production mode
+
+`yarn client:start` SPA production static server mode
 
 `yarn server:dev` Server development mode
 

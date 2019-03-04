@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { initializeStore } from './store/index.js';
 import { Provider } from 'react-redux';
 const preloadedState = window.__PRELOADED_STATE__;
-// console.log('preloadedState: ', preloadedState);
 const store = initializeStore(preloadedState);
 
 ReactDOM.render(

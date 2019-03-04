@@ -1,65 +1,86 @@
+const merge = require('webpack-merge');
+const common = require('./client.prod.js');
 const path = require('path');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devMode = process.env.NODE_ENV !== 'production'
 
-const commonConfig = {
-    mode: 'development',
-    watch: true,
-    devtool: 'inline-source-map',
+const clientConfig = require('./client.prod');
+const serverConfig = {
+    target: 'node',
+    entry: {
+        client: ["@babel/polyfill", path.resolve(__dirname, '../server/index.js')]
+    },
+    output: {
+        path: path.resolve(__dirname, '../dist'),
+        filename: '[name].[hash].js',
+        chunkFilename: '[name].bundle.js',
+        publicPath: '/'
+    },
+    plugins: [
+        new CleanWebpackPlugin([path.resolve(__dirname, '../dist')]),
+        new MiniCssExtractPlugin({
+            filename: devMode ? '[name].css' : '[name].[hash].css',
+            chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+        })
+    ],
     module: {
         rules: [
-            {test: /\.css$/,use: ['style-loader','css-loader']},
-            {test: /\.(png|svg|jpg|gif)$/,use: ['file-loader']},
-            {test: /\.(woff|woff2|eot|ttf|otf)$/,use: ['file-loader']},
-            {test: /\.(csv|tsv)$/,use: ['csv-loader']},
+            {
+                test: /\.(sa|sc|c)ss$/,
+                use: [
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    { loader: 'css-loader', options: { importLoaders: 1 } },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: "postcss",
+                            plugins: () => [
+                                require('precss')(),
+                                require('autoprefixer')()
+                            ]
+                        }
+                    },
+                    {
+                        loader: 'sass-loader', 
+                        options: {
+                            includePaths: [path.resolve(__dirname, '../client')]
+                        }
+                    }
+                ],
+            },
+            {test: /\.(png|svg|jpg|gif)$/, use: ['file-loader']},
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/, 
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].bundle.[ext]',
+                    }
+                }
+            },
+            {test: /\.(csv|tsv)$/, use: ['csv-loader']},
             {test: /\.xml$/,use: ['xml-loader']},
             {
                 test: /\.(js|jsx)$/,
+                include: [path.resolve(__dirname, '../client')],
                 exclude: /(node_modules|bower_components)/,
                 use: {
                   loader: 'babel-loader',
                   options: {
                     presets: ["@babel/preset-env", "@babel/preset-react"],
-                    plugins: ["@babel/plugin-proposal-class-properties", "@babel/plugin-syntax-dynamic-import"]
+                    plugins: [
+                        "@babel/plugin-transform-regenerator",
+                        "@babel/plugin-syntax-dynamic-import",
+                        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                        ["@babel/plugin-proposal-class-properties", { "loose": true }],
+                        ["babel-plugin-import", { "libraryName": "antd" }]
+                    ]
                   }
                 }
-            },
-            {sideEffects: false} //for tree-shaking
+            }
         ]
     }
-}
-
-const clientConfig = {
-    target: 'web',
-    entry: {
-        client: ["@babel/polyfill", path.resolve(__dirname, '../client/index.js')]
-    },
-    output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: '[name].bundle.js'
-    },
-    plugins: [
-        new ManifestPlugin({
-            fileName: 'client.manifest.json'
-        })
-    ],
-    ...commonConfig
-}
-
-const serverConfig = {
-    target: 'node',
-    entry: {
-        server: ['@babel/polyfill', path.resolve(__dirname, '../server/index.js')]
-    },
-    output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: '[name].bundle.js'
-    },
-    plugins: [
-        new ManifestPlugin({
-            fileName: 'server.manifest.json'
-        })
-    ],
-    ...commonConfig
 }
 
 module.exports = [clientConfig, serverConfig];

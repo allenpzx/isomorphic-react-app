@@ -79,6 +79,7 @@ class CodeSpliting extends React.Component{
                     <Route path='/code-spliting/b' component={B} />
                     <Route component={Empty} />
                 </Switch>
+                <div id='test'>Test</div>
                 {/* <Container>
                     {show && show.payload instanceof Array && show.payload.map(v=><Item key={v.show.url}><h2>{v.show.name}</h2><img src={v.show.image ? v.show.image.medium : null}/></Item>)}
                 </Container>

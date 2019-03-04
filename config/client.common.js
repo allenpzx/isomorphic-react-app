@@ -1,7 +1,9 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devMode = process.env.NODE_ENV !== 'production'
+
 module.exports = {
     target: 'web',
     entry: {
@@ -17,27 +19,54 @@ module.exports = {
         new CleanWebpackPlugin([path.resolve(__dirname, '../dist')]),
         new HtmlWebpackPlugin({
             title: 'Isomorphic React App',
-            template: path.resolve(__dirname, '../public/index.html')
+            template: path.resolve(__dirname, '../public/index.html'),
+            minify: true
         }),
-        new ExtractTextPlugin({
-            filename: '[name].bundle.css'
+        new MiniCssExtractPlugin({
+            filename: devMode ? '[name].css' : '[name].[hash].css',
+            chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
         })
     ],
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                  fallback: "style-loader",
-                  use: "css-loader"
-                })
+                test: /\.(sa|sc|c)ss$/,
+                use: [
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    { loader: 'css-loader', options: { importLoaders: 1 } },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: "postcss",
+                            plugins: () => [
+                                require('precss')(),
+                                require('autoprefixer')()
+                            ]
+                        }
+                    },
+                    {
+                        loader: 'sass-loader', 
+                        options: {
+                            includePaths: [path.resolve(__dirname, '../client')]
+                        }
+                    }
+                ],
             },
-            {test: /\.(png|svg|jpg|gif)$/,use: ['file-loader']},
-            {test: /\.(woff|woff2|eot|ttf|otf)$/,use: ['file-loader']},
-            {test: /\.(csv|tsv)$/,use: ['csv-loader']},
+            {test: /\.(png|svg|jpg|gif)$/, use: ['file-loader']},
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/, 
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].bundle.[ext]',
+                    }
+                }
+            },
+            {test: /\.(csv|tsv)$/, use: ['csv-loader']},
             {test: /\.xml$/,use: ['xml-loader']},
             {
                 test: /\.(js|jsx)$/,
+                include: [path.resolve(__dirname, '../client')],
                 exclude: /(node_modules|bower_components)/,
                 use: {
                   loader: 'babel-loader',
@@ -52,8 +81,7 @@ module.exports = {
                     ]
                   }
                 }
-            },
-            {sideEffects: false} //for tree-shaking
+            }
         ]
     }
 }
