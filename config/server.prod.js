@@ -1,15 +1,13 @@
-const merge = require('webpack-merge');
-const common = require('./client.prod.js');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const devMode = process.env.NODE_ENV !== 'production'
+const devMode = process.env.NODE_ENV !== 'production';
 
-const clientConfig = require('./client.prod');
-const serverConfig = {
-    target: 'node',
+module.exports = {
+    target: 'web',
     entry: {
-        client: ["@babel/polyfill", path.resolve(__dirname, '../server/index.js')]
+        client: ["@babel/polyfill", path.resolve(__dirname, '../client/index.js')]
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
@@ -19,6 +17,11 @@ const serverConfig = {
     },
     plugins: [
         new CleanWebpackPlugin([path.resolve(__dirname, '../dist')]),
+        new HtmlWebpackPlugin({
+            title: 'Isomorphic React App',
+            template: path.resolve(__dirname, '../public/index.html'),
+            minify: true
+        }),
         new MiniCssExtractPlugin({
             filename: devMode ? '[name].css' : '[name].[hash].css',
             chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
@@ -39,12 +42,6 @@ const serverConfig = {
                                 require('precss')(),
                                 require('autoprefixer')()
                             ]
-                        }
-                    },
-                    {
-                        loader: 'sass-loader', 
-                        options: {
-                            includePaths: [path.resolve(__dirname, '../client')]
                         }
                     }
                 ],
@@ -82,5 +79,3 @@ const serverConfig = {
         ]
     }
 }
-
-module.exports = [clientConfig, serverConfig];

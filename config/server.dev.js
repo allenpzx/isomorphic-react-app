@@ -1,32 +1,9 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const devMode = process.env.NODE_ENV !== 'production';
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const devMode = process.env.NODE_ENV != 'production';
 
-module.exports = {
-    target: 'web',
-    entry: {
-        client: ["@babel/polyfill", path.resolve(__dirname, '../client/index.js')]
-    },
-    output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: '[name].[hash].js',
-        chunkFilename: '[name].bundle.js',
-        publicPath: '/'
-    },
-    plugins: [
-        new CleanWebpackPlugin([path.resolve(__dirname, '../dist')]),
-        new HtmlWebpackPlugin({
-            title: 'Isomorphic React App',
-            template: path.resolve(__dirname, '../public/index.html'),
-            minify: true
-        }),
-        new MiniCssExtractPlugin({
-            filename: devMode ? '[name].css' : '[name].[hash].css',
-            chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
-        })
-    ],
+const commonConfig = {
+    devtool: 'cheap-module-source-map',
     module: {
         rules: [
             {
@@ -45,7 +22,7 @@ module.exports = {
                         }
                     }
                 ],
-            },
+            },  
             {test: /\.(png|svg|jpg|gif)$/, use: ['file-loader']},
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/, 
@@ -60,7 +37,6 @@ module.exports = {
             {test: /\.xml$/,use: ['xml-loader']},
             {
                 test: /\.(js|jsx)$/,
-                include: [path.resolve(__dirname, '../client')],
                 exclude: /(node_modules|bower_components)/,
                 use: {
                   loader: 'babel-loader',
@@ -79,3 +55,23 @@ module.exports = {
         ]
     }
 }
+
+const clientConfig = {
+    mode: devMode ? 'development' : 'production',
+    // target: 'web',
+    entry: {
+        client: ["@babel/polyfill", path.resolve(__dirname, '../client/index.js')]
+    },
+    ...commonConfig
+}
+
+const serverConfig = {
+    mode: devMode ? 'development' : 'production',
+    target: 'node',
+    entry: {
+        server: ["@babel/polyfill", path.resolve(__dirname, '../server/index.js')]
+    },
+    ...commonConfig
+}
+
+module.exports = [clientConfig, serverConfig];

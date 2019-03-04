@@ -1,27 +1,21 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== 'production';
 
-module.exports = {
-    target: 'web',
+const clientConfig = require('./client.prod.js');
+const serverConfig = {
+    mode: 'production',
+    target: 'node',
     entry: {
-        client: ["@babel/polyfill", path.resolve(__dirname, '../client/index.js')]
+        server: ["@babel/polyfill", path.resolve(__dirname, '../server/index.js')]
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
-        filename: '[name].[hash].js',
-        chunkFilename: '[name].bundle.js',
+        filename: '[name].bundle.js',
+        chunkFilename: '[name].chunk.js',
         publicPath: '/'
     },
     plugins: [
-        new CleanWebpackPlugin([path.resolve(__dirname, '../dist')]),
-        new HtmlWebpackPlugin({
-            title: 'Isomorphic React App',
-            template: path.resolve(__dirname, '../public/index.html'),
-            minify: true
-        }),
         new MiniCssExtractPlugin({
             filename: devMode ? '[name].css' : '[name].[hash].css',
             chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
@@ -60,7 +54,6 @@ module.exports = {
             {test: /\.xml$/,use: ['xml-loader']},
             {
                 test: /\.(js|jsx)$/,
-                include: [path.resolve(__dirname, '../client')],
                 exclude: /(node_modules|bower_components)/,
                 use: {
                   loader: 'babel-loader',
@@ -79,3 +72,5 @@ module.exports = {
         ]
     }
 }
+
+module.exports = [clientConfig, serverConfig]
