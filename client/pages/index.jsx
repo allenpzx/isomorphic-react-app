@@ -17,7 +17,8 @@ const route = [
     {id: 'index', path: '/'},
     {id: 'todo', path: '/todo'},
     {id: 'code-spliting', path: '/code-spliting'},
-    {id: 'async-cancel', path: '/async-cancel'}
+    {id: 'async-cancel', path: '/async-cancel'},
+    {id: 'water-fall', path: '/water-fall'}
 ];
 
 export default class Index extends React.Component{

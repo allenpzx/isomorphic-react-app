@@ -11,8 +11,8 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
-        filename: '[name].[hash].js',
-        chunkFilename: '[name].bundle.js',
+        filename: '[name].bundle.js',
+        chunkFilename: '[name].chunk.js',
         publicPath: '/'
     },
     plugins: [

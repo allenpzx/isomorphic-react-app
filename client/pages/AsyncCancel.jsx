@@ -10,16 +10,19 @@ import { Button } from 'antd';
     dispatch=>({
         handleCount: type=>dispatch({type}),
         getShows: ()=>{
-            dispatch({type: 'GET_SHOWS_TRIGGER'})
+            console.log('excute')
+            dispatch({type: 'GET_SHOWS_TRIGGER'});
         },
         cancelRequest: ()=>{
-            dispatch({type: 'GET_SHOWS_CANCEL'})
+            dispatch({type: 'GET_SHOWS_CANCEL'});
+        },
+        resetShows: ()=>{
+            dispatch({type: 'GET_SHOWS_RESET'});
         }
     })
 )
 class Saga extends React.Component {
     render(){
-        // console.log(this.props);
         return (
             <div>
                 <h1>delay event</h1>
@@ -35,6 +38,7 @@ class Saga extends React.Component {
                 <br />
                 <Button onClick={()=>this.props.getShows()}>request start</Button>
                 <Button onClick={()=>this.props.cancelRequest()}>request cancel</Button>
+                <Button onClick={()=>this.props.resetShows()}>reset shows</Button>
             </div>
         )
     }

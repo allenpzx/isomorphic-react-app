@@ -5,6 +5,7 @@ import Layout from "./components/layout.js";
 import Todo from "./pages/todo.jsx";
 import AsyncCancel from './pages/AsyncCancel.jsx';
 import { Switch, Route } from "react-router-dom";
+import WaterFall from './pages/water-fall.jsx';
 import 'antd/dist/antd.css';
 import './assets/styles/index.css';
 
@@ -16,6 +17,7 @@ class App extends React.Component {
           <Route path="/code-spliting" component={CodeSpliting} />
           <Route path="/todo" component={Todo} />
           <Route path="/async-cancel" component={AsyncCancel} />
+          <Route path="/water-fall" component={WaterFall} />
           <Route component={Index} />
         </Switch>
       </Layout>
