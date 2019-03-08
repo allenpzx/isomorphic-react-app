@@ -1,19 +1,14 @@
 import React from "react";
-import { Card } from "antd";
+import { Button } from "antd";
 import styled from "styled-components";
-import '../assets/styles/water-fall.css';
 
 const Container = styled.div`
-  width: 80vw;
+  width: 90vw;
   position: relative;
-  // border: 1px solid red;
-  // box-sizing: border-box;
-  // display: flex;
-  // padding: 20px;
-  // flex-direction: row;
-  // flex-wrap: wrap;
-  // justify-content: center;
-  // align-items: flex-start;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 1px solid red;
 
   -webkit-column-count: 3;
   -webkit-column-gap: 10px;
@@ -24,7 +19,42 @@ const Container = styled.div`
   column-count: 4;
   column-gap: 15px;
   column-fill: auto;
+
+  .item{
+    margin-right: 0;
+    margin-left: 0;
+    display: block;
+    padding: 0;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+  }
 `;
+
+const JSContainer = styled.div`
+  width: 90vw;
+  position: relative;
+  border: 1px solid red;
+  box-sizing: border-box;
+  over-flow: hidden;
+  hight: auto;
+    .item{
+      width: auto;
+      display: block;
+      padding: 0;
+      margin: 0;
+      position: absolute;
+      box-sizing: border-box;
+      float: left;
+      margin-bottom: 20px;
+    }
+`;
+
+const WhiteSpace = styled.div`
+    width: 100%;
+    display: block;
+    margin 20px 0;
+    position: relative;
+`
 
 function getScrollTop() {
   var scrollTop = 0;
@@ -97,14 +127,39 @@ function throttle (fn, wait){
     }
 }
 
-const readonly = (target, name, descriptor) => {
-  descriptor.writable = false;
-  return descriptor;
-};
+function JSWaterFall(containerId, width, gap){
+    const container = document.getElementById(containerId);
+    const items = container.children;
+    const containerWidth = container.offsetWidth;
+    const column = Math.floor(containerWidth/(width+gap));
+    let heightArr = [];
+
+    [...items].map((v, i, arr)=>{
+      v.style.position = 'absolute';
+      v.style.width = width + 'px';
+      if(i<column){
+        const l = i * (width + gap);
+        heightArr.push(v.offsetHeight);
+        v.style.left = l + 'px';
+        v.style.top = 0;
+      }else{
+        const minH = Math.min(...heightArr);
+        const minH_index = heightArr.indexOf(minH);
+        const left = arr[minH_index].offsetLeft;
+        v.style.left = left + 'px';
+        v.style.top = minH + gap + 'px';
+        const height = v.offsetHeight;
+        heightArr[minH_index] = heightArr[minH_index] + height + gap;
+      }
+    });
+
+    container.style.margin = '0 auto';
+}
 
 export default class WaterFall extends React.Component {
     
   state = {
+    display: 'css',
     list: [],
     debounceTime: null
   };
@@ -115,12 +170,22 @@ export default class WaterFall extends React.Component {
     });
   }
 
+  handleWaterFall = (dis) => {
+      this.setState({display: dis, list: dis==='js'?this.fetchRandomImage():this.state.list}, ()=>{
+          if(dis==='js'){
+              JSWaterFall('js-container', 200, 10);
+          }
+      });
+  }
+
   loadMore = () => {
     console.log('watching...');
     const salt = 20;
     const trigger = getClientHeight() + getScrollTop() >= getScrollHeight() - salt;
     if(trigger){
-        this.setState({list: this.state.list.concat(this.fetchRandomImage())});
+        this.setState({list: this.state.list.concat(this.fetchRandomImage())}, ()=>{
+          this.state.display === 'js' && JSWaterFall('js-container', 200, 10);
+        });
         console.log('function is going');
     }
   }
@@ -136,21 +201,12 @@ export default class WaterFall extends React.Component {
     }
     const Imgs = arr.map((v, i) => {
       return (
-        <Card
-          hoverable
-          style={{
-            width: "100px"
-          }}
-          cover={<img alt="example" src={v} />}
-          key={i + Math.random() * Math.random()}
-          className='item'
-        />
+        <img className='item' src={v} alt='ceshi' key={i + Math.random() * Math.random()} />
       );
     });
     return Imgs;
   };
 
-  // @readonly
   randomNum = (minNum, maxNum) => {
     if (maxNum) {
       return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
@@ -164,9 +220,11 @@ export default class WaterFall extends React.Component {
   render() {
     return (
       <div>
-        <h1>This is WaterFall shows Page</h1>
-        <p>below is WaterFall display, window was listerned scroll event through </p>
-        <Container>{this.state.list}</Container>
+        <h1>WaterFall and throttle</h1>
+        <p>Include css and js to handle waterFall</p>
+        <Button onClick={()=>this.handleWaterFall('css')}>css waterFall</Button> <Button onClick={()=>this.handleWaterFall('js')}>js waterFall</Button>
+        <WhiteSpace />
+        {this.state.display === 'css' ? <Container>{this.state.list}</Container> : <JSContainer id='js-container'>{this.state.list}</JSContainer>}
       </div>
     );
   }

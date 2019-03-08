@@ -8,7 +8,8 @@ module.exports = merge(common, {
     devServer: {
         contentBase: path.resolve(__dirname, '../dist'),
         historyApiFallback: true,
-        publicPath: '/'
+        publicPath: '/',
+        hot: true
     },
     plugins: [
         new webpack.DefinePlugin({
