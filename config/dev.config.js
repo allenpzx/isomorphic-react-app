@@ -1,65 +1,23 @@
 const path = require('path');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const webpack = require('webpack');
+// const devMode = process.env.NODE_ENV !== 'production';
+const common = require('./client.common.js');
 
-const commonConfig = {
-    mode: 'development',
-    watch: true,
-    devtool: 'inline-source-map',
-    module: {
-        rules: [
-            {test: /\.css$/,use: ['style-loader','css-loader']},
-            {test: /\.(png|svg|jpg|gif)$/,use: ['file-loader']},
-            {test: /\.(woff|woff2|eot|ttf|otf)$/,use: ['file-loader']},
-            {test: /\.(csv|tsv)$/,use: ['csv-loader']},
-            {test: /\.xml$/,use: ['xml-loader']},
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /(node_modules|bower_components)/,
-                use: {
-                  loader: 'babel-loader',
-                  options: {
-                    presets: ["@babel/preset-env", "@babel/preset-react"],
-                    plugins: ["@babel/plugin-proposal-class-properties", "@babel/plugin-syntax-dynamic-import"]
-                  }
-                }
-            },
-            {sideEffects: false} //for tree-shaking
-        ]
-    }
+// common.target = 'node';
+common.mode = 'development'
+common.entry.client.pop();
+common.entry.client.push(path.resolve(__dirname, '../client/app.js'));
+common.plugins = common.plugins.concat([
+    new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify('development')
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+]);
+common.devtool = 'inline-source-map',
+common.devServer = {
+    contentBase: path.resolve(__dirname, '../dist'),
+    historyApiFallback: true,
+    publicPath: '/'
 }
-
-const clientConfig = {
-    target: 'web',
-    entry: {
-        client: ["@babel/polyfill", path.resolve(__dirname, '../client/index.js')]
-    },
-    output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: '[name].bundle.js'
-    },
-    plugins: [
-        new ManifestPlugin({
-            fileName: 'client.manifest.json'
-        })
-    ],
-    ...commonConfig
-}
-
-const serverConfig = {
-    target: 'node',
-    entry: {
-        server: ['@babel/polyfill', path.resolve(__dirname, '../server/index.js')]
-    },
-    output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: '[name].bundle.js'
-    },
-    plugins: [
-        new ManifestPlugin({
-            fileName: 'server.manifest.json'
-        })
-    ],
-    ...commonConfig
-}
-
-module.exports = [clientConfig, serverConfig];
+module.exports = common;

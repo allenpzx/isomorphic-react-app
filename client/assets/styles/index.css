@@ -1,0 +1,35 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    /* background: linear-gradient(to bottom, #abcdef, #f3f5f7); */
+}
+
+#app{
+    width: 100vw;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@font-face{
+    font-family: myFirstFont;
+    src: url('../fonts/Slabo27px-Regular.ttf');
+}
+
+#test{
+    border: 1px solid red;
+    color: red;
+    font-family:myFirstFont;
+    
+    &{
+        border: 2px solid blue;
+    }
+}
+
+.b-container {
+    border: 2px solid orange;
+}

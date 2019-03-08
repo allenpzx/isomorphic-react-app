@@ -17,7 +17,8 @@ const route = [
     {id: 'index', path: '/'},
     {id: 'todo', path: '/todo'},
     {id: 'code-spliting', path: '/code-spliting'},
-    {id: 'saga', path: '/saga'}
+    {id: 'async-cancel', path: '/async-cancel'},
+    {id: 'water-fall', path: '/water-fall'}
 ];
 
 export default class Index extends React.Component{
@@ -25,6 +26,7 @@ export default class Index extends React.Component{
         return (
             <Container>
                 <List 
+                    style={{width: '50vw'}}
                     dataSource={route}
                     renderItem={v=><List.Item><Link to={v.path}>{v.id}</Link></List.Item>}
                 />
