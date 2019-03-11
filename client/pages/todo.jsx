@@ -17,7 +17,7 @@ const Page = styled.div`
     box-sizing: border-box;
 `;
 
-const Container = styled.div`
+const Layout = styled.div`
     width: 50vw;
     border: 1px solid yellow;
     padding: 1rem 2rem;
@@ -62,10 +62,8 @@ class Todo extends React.Component {
     render(){
         return (
             <Page>
-                <h1>This is todo list Page!</h1>
-                <p>use redux with react-redux in server side</p>
-                <img style={{width: '200px'}} src={require('../assets/images/test.jpg')} alt="test"/>
-                <Container>
+                <h1>todo list</h1>
+                <Layout>
                     <TodoList todos={this.props.todo} toggleTodo={this.props.toggleTodo}/>
                     <br />
                     <Button onClick={()=>this.props.filtTodos('SHOW_ALL')}>show all</Button>
@@ -80,7 +78,7 @@ class Todo extends React.Component {
                         value={this.state.todo}
                         onChange={this.handleChange}
                     />
-                </Container>
+                </Layout>
             </Page>
         )
     }

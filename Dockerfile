@@ -1,0 +1,7 @@
+FROM node:10.3.0
+MAINTAINER Zixiu
+ADD . /app
+WORKDIR /app
+ENV PORT 3000
+CMD ['yarn', 'start']
+EXPOSE 3000

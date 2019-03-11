@@ -5,7 +5,7 @@ client: `react 16` + `redux 4` + `react-router 4` + `react-loadable 5` + `styled
 test: `jest 24`
 bundle: `webpack 4` + `babel 7`
 
-Isomorphic React App, including SSR/code splitting/preload/dynamic import/side effect enhancer/CSS in JS/testing...
+Default Mode: `SPA`
 
 `yarn` install required dependencies for all operations
 

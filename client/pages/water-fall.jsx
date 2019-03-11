@@ -35,7 +35,6 @@ const JSContainer = styled.div`
   position: relative;
   border: 1px solid red;
   box-sizing: border-box;
-  over-flow: hidden;
   hight: auto;
     .item{
       width: auto;

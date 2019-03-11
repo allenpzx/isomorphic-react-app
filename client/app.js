@@ -6,6 +6,7 @@ import Todo from "./pages/todo.jsx";
 import AsyncCancel from './pages/AsyncCancel.jsx';
 import { Switch, Route } from "react-router-dom";
 import WaterFall from './pages/water-fall.jsx';
+import WaterMark from './pages/water-mark.jsx';
 import 'antd/dist/antd.css';
 import './assets/styles/index.css';
 
@@ -18,6 +19,7 @@ class App extends React.Component {
           <Route path="/todo" component={Todo} />
           <Route path="/async-cancel" component={AsyncCancel} />
           <Route path="/water-fall" component={WaterFall} />
+          <Route path="/water-mark" component={WaterMark} />
           <Route component={Index} />
         </Switch>
       </Layout>
