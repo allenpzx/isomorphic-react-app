@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "yarn && cross-env NODE_ENV=production && yarn client:prod && node config/client.start.js",
+    "start": "yarn && cross-env NODE_ENV=production && yarn client:prod && pm2 start ecosystem.config.js",
     "dev": "yarn client:dev",
     "build": "yarn client:prod",
     "test": "jest",
@@ -55,6 +55,7 @@
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "pm2": "^3.3.1",
     "postcss-loader": "^3.0.0",
     "precss": "^4.0.0",
     "react-test-renderer": "^16.8.2",
