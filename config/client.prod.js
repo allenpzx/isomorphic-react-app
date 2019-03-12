@@ -47,6 +47,7 @@ module.exports = merge(common, {
         new BundleAnalyzerPlugin({
             analyzerMode: 'static',
             reportFilename: 'bundle-analyze.html',
+            openAnalyzer: false
         }),
         new ManifestPlugin({
             fileName: 'client.manifest.json'

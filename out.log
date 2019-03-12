@@ -1,0 +1,8 @@
+{"message":"Test client:prod is listerned on http://localhost:9090\n","timestamp":"2019-03-11T09:59:05.485Z","type":"out","process_id":0,"app_name":"Reac App"}
+{"message":"Test client:prod is listerned on http://localhost:9090\n","timestamp":"2019-03-11T09:59:05.485Z","type":"out","process_id":1,"app_name":"Reac App"}
+{"message":"Test client:prod is listerned on http://localhost:9090\n","timestamp":"2019-03-11T09:59:05.485Z","type":"out","process_id":2,"app_name":"Reac App"}
+{"message":"Test client:prod is listerned on http://localhost:9090\n","timestamp":"2019-03-11T09:59:05.488Z","type":"out","process_id":3,"app_name":"Reac App"}
+{"message":"Test client:prod is listerned on http://localhost:9090\n","timestamp":"2019-03-12T02:09:17.323Z","type":"out","process_id":0,"app_name":"Reac App"}
+{"message":"Test client:prod is listerned on http://localhost:9090\n","timestamp":"2019-03-12T02:09:17.324Z","type":"out","process_id":1,"app_name":"Reac App"}
+{"message":"Test client:prod is listerned on http://localhost:9090\n","timestamp":"2019-03-12T02:09:17.324Z","type":"out","process_id":2,"app_name":"Reac App"}
+{"message":"Test client:prod is listerned on http://localhost:9090\n","timestamp":"2019-03-12T02:09:17.327Z","type":"out","process_id":3,"app_name":"Reac App"}

@@ -4,14 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "yarn && yarn build && cross-env NODE_ENV=production node dist/server.bundle.js",
-    "dev": "cross-env NODE_ENV=development nodemon config/server.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config config/isomorphic.prod.js",
+    "prev": "yarn && cross-env NODE_ENV=production yarn client:prod",
+    "start": "node config/client.start.js",
+    "dev": "yarn client:dev",
+    "build": "yarn client:prod",
     "test": "jest",
     "client:dev": "cross-env NODE_ENV=development webpack-dev-server --open --config config/client.dev.js",
     "client:prod": "cross-env NODE_ENV=production webpack --config config/client.prod.js",
-    "client:start": "node config/client.start.js",
-    "server:dev": "cross-env NODE_ENV=development webpack --watch --config config/server.dev.js"
+    "client:start": "node config/client.start.js"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.3.0",
