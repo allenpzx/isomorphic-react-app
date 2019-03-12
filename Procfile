@@ -1,0 +1,1 @@
+web npm run prev && npm run start
