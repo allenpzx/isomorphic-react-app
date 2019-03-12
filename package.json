@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "prev": "yarn && cross-env NODE_ENV=production",
-    "start": "yarn client:prod && node config/client.start.js",
+    "prev": "yarn && cross-env NODE_ENV=production yarn client:prod",
+    "start": "node config/client.start.js",
     "dev": "yarn client:dev",
     "build": "yarn client:prod",
     "test": "jest",
