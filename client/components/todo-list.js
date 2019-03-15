@@ -13,11 +13,11 @@ export default function TodoList({todos, toggleTodo}){
     const next = arr2.concat(arr1);
     return (
         <div>
-            <h1>Todo list</h1>
             <List
+                header={<div style={{color: '#1890ff'}}>Todo list</div>}
                 bordered
                 dataSource={next}
-                renderItem={item => (<List.Item style={{flexDirection: 'row', justifyContent: 'space-around', textDecoration: item.completed?'line-through':'none'}}>-{item.text}<Button onClick={()=>toggleTodo(item.id)}>toggle</Button></List.Item>)}
+                renderItem={item => (<List.Item actions={[<span onClick={()=>toggleTodo(item.id)}>toggle</span>]} style={{flexDirection: 'row', justifyContent: 'space-around', textDecoration: item.completed?'line-through':'none'}}>- {item.text}</List.Item>)}
             />
         </div>
     )

@@ -15,11 +15,14 @@ const Page = styled.div`
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+
+    button{
+        margin: 0 10px 0 0;
+    }
 `;
 
 const Layout = styled.div`
-    width: 50vw;
-    border: 1px solid yellow;
+    width: 80vw;
     padding: 1rem 2rem;
 `;
 
@@ -52,7 +55,7 @@ class Todo extends React.Component {
         todo: ''
     }
 
-    handleChange = e => this.setState({todo: this.state.todo + e.target.value});
+    handleChange = e => this.setState({todo: e.target.value});
 
     handleAddTodo = v => {
         this.props.addTodo(v);
@@ -62,7 +65,6 @@ class Todo extends React.Component {
     render(){
         return (
             <Page>
-                <h1>todo list</h1>
                 <Layout>
                     <TodoList todos={this.props.todo} toggleTodo={this.props.toggleTodo}/>
                     <br />
