@@ -52,17 +52,18 @@ export default function ConcurrentRequest() {
       if (current > limit) {
         return;
       }
+      const { value, done } = g.next();
       current++
       console.log('current: ', current);
-      const { value, done } = g.next();
-      
       if (done) {
         console.log("finished!", list);
         return;
       }
+      loop()
       value.then(res => {
         list.push(res);
         current--;
+        loop()
       });
     };
   }
