@@ -49,17 +49,17 @@ export default function ConcurrentRequest() {
     let list = [];
 
     return function loop() {
-      if (current > limit) {
+      if (current >= limit) {
         return;
       }
       const { value, done } = g.next();
       current++
       console.log('current: ', current);
       if (done) {
-        console.log("finished!", list);
+        callback(list);
         return;
       }
-      loop()
+      loop();
       value.then(res => {
         list.push(res);
         current--;
@@ -72,7 +72,8 @@ export default function ConcurrentRequest() {
 
   function callback(res) {
     console.log(res);
-    setShow(res);
+    const target = res.reduce((pre,now)=>pre.concat(now));
+    setShow(target);
   }
 
   return (
