@@ -39,40 +39,39 @@ export default function ConcurrentRequest() {
   }
 
   function concurrent(urls, limit, callback) {
-    function* format_urls() {
-      for (const url of urls) {
-        yield fetch(url).then(res => res.json());
-      }
-    }
-    const g = format_urls();
     let current = 0;
     let list = [];
+    let index = 0;
 
-    return function loop() {
-      if (current >= limit) {
-        return;
-      }
-      const { value, done } = g.next();
-      current++
-      console.log('current: ', current);
-      if (done) {
-        callback(list);
-        return;
-      }
-      loop();
-      value.then(res => {
-        list.push(res);
-        current--;
-        loop()
-      });
-    };
+    return function loop(){
+        console.log('===========================loop==========================')
+        console.log('[current]-', current, '[index]-', index, '[list]-', list);
+        console.log('=========================================================')
+        console.log('')
+        if(urls.length === list.length){
+            console.log('finished');
+            console.log('[current]-', current, '[index]-', index, '[list]-', list);
+            callback(list)
+        }
+        while(index < urls.length && current < limit){
+            current++
+            fetch(urls[index]).then(res=>res.json()).then(res=>{
+                if(list.push(res)){
+                    current--
+                    loop();
+                }
+            });
+            index++
+            loop();
+        }
+    }
   }
 
   const reset = () => setShow([]);
 
   function callback(res) {
     console.log(res);
-    const target = res.reduce((pre,now)=>pre.concat(now));
+    const target = res.reduce((pre, now) => pre.concat(now));
     setShow(target);
   }
 
