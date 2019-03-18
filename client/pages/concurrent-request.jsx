@@ -44,10 +44,7 @@ export default function ConcurrentRequest() {
     let index = 0;
 
     return function loop(){
-        console.log('===========================loop==========================')
-        console.log('[current]-', current, '[index]-', index, '[list]-', list);
-        console.log('=========================================================')
-        console.log('')
+        console.log('loop======', '[current]-', current, '[index]-', index, '[list]-', list);
         if(urls.length === list.length){
             console.log('finished');
             console.log('[current]-', current, '[index]-', index, '[list]-', list);
