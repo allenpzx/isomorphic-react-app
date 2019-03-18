@@ -19,7 +19,7 @@ const Container = styled.div`
 
 export default function ConcurrentRequest() {
   const [show, setShow] = useState([]);
-  const urls = Array(20).fill("http://api.tvmaze.com/search/shows?q=batman");
+  const urls = Array(20).fill("https://api.tvmaze.com/search/shows?q=batman");
 
   async function secondary() {
     try {
