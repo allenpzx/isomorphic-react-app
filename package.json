@@ -8,13 +8,13 @@
   },
   "scripts": {
     "prev": "npm install && cross-env NODE_ENV=production npm run client:prod",
-    "start": "node config/client.start.js",
+    "start": "node scripts/client.start.js",
     "dev": "npm run client:dev",
     "build": "npm run client:prod",
     "test": "jest",
-    "client:dev": "cross-env NODE_ENV=development webpack-dev-server --open --config config/client.dev.js",
-    "client:prod": "cross-env NODE_ENV=production webpack --config config/client.prod.js",
-    "client:start": "node config/client.start.js",
+    "client:dev": "cross-env NODE_ENV=development webpack-dev-server --open --config scripts/client.dev.js",
+    "client:prod": "cross-env NODE_ENV=production webpack --config scripts/client.prod.js",
+    "client:start": "node scripts/client.start.js",
     "deploy:heroku": "git push heroku master"
   },
   "dependencies": {
