@@ -1,0 +1,44 @@
+.button-group button {
+  margin-right: 1rem;
+}
+
+.fade {
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.fade-entering {
+  opacity: 1;
+}
+
+.fade-entered {
+  opacity: 1;
+}
+
+.fade-exiting {
+  opacity: 0;
+}
+
+.fade-exited {
+  opacity: 0;
+}
+
+.fade-unmounted {
+  opacity: 0;
+  border: 1px solid red;
+}
+
+.item-enter {
+  opacity: 0;
+}
+.item-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.item-exit {
+  opacity: 1;
+}
+.item-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}

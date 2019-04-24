@@ -47,7 +47,6 @@ export default function ConcurrentRequest() {
         console.log('loop======', '[current]-', current, '[index]-', index, '[list]-', list);
         if(urls.length === list.length){
             console.log('finished');
-            console.log('[current]-', current, '[index]-', index, '[list]-', list);
             callback(list)
         }
         while(index < urls.length && current < limit){
@@ -67,7 +66,6 @@ export default function ConcurrentRequest() {
   const reset = () => setShow([]);
 
   function callback(res) {
-    console.log(res);
     const target = res.reduce((pre, now) => pre.concat(now));
     setShow(target);
   }

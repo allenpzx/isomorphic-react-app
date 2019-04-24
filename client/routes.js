@@ -6,6 +6,7 @@ import WaterFall from './pages/water-fall.jsx';
 import WaterMark from './pages/water-mark.jsx';
 import ConcurrentRequest from './pages/concurrent-request.jsx';
 import NotFound from './pages/not-found.jsx';
+import TransitionCompo from "./pages/transition-compo/transition-compo.jsx";
 
 export default [
     {id: 'catelog', path: '/', component: CateLog, exact: true},
@@ -15,5 +16,6 @@ export default [
     {id: 'water-fall', path: '/water-fall', component: WaterFall},
     {id: 'water-mark', path: '/water-mark', component: WaterMark},
     {id: 'concurrent-request', path: '/concurrent-request', component: ConcurrentRequest},
+    {id: 'transition-compo', path: '/transition-compo', component: TransitionCompo},
     {id: 'not-found', path: null, component: NotFound}
 ];

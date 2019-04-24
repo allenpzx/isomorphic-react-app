@@ -13,7 +13,6 @@ function cleanDir(dir) {
     }catch(e) {
         if(e) throw e;
     }
-
 }
 
 module.exports = cleanDir

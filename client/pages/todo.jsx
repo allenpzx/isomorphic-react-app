@@ -63,14 +63,15 @@ class Todo extends React.Component {
     }
 
     render(){
+        const { todo, toggleTodo, filtTodos } = this.props;
         return (
             <Page>
                 <Layout>
-                    <TodoList todos={this.props.todo} toggleTodo={this.props.toggleTodo}/>
+                    <TodoList todos={todo} toggleTodo={toggleTodo}/>
                     <br />
-                    <Button onClick={()=>this.props.filtTodos('SHOW_ALL')}>show all</Button>
-                    <Button onClick={()=>this.props.filtTodos('SHOW_COMPLETED')}>show completed</Button>
-                    <Button onClick={()=>this.props.filtTodos('SHOW_ACTIVE')}>show active</Button>
+                    <Button onClick={()=>filtTodos('SHOW_ALL')}>show all</Button>
+                    <Button onClick={()=>filtTodos('SHOW_COMPLETED')}>show completed</Button>
+                    <Button onClick={()=>filtTodos('SHOW_ACTIVE')}>show active</Button>
                     <br />
                     <br />
                     <Search
